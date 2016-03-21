@@ -12,7 +12,7 @@ job('test-system-image') {
       actionTypeProvider 'JenkinsJPSTUE564bc1e4'
       projectName 'test-system-image'
       actionTypeVersion 1
-      region 'us-west-2"
+      region 'us-west-2'
     }
 
     project.remove(project / publishers)
