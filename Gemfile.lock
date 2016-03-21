@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    cfndsl (0.3.4)
+    jenkins_api_client (1.4.2)
+      json
+      mixlib-shellout (>= 1.1.0)
+      nokogiri (~> 1.6.0)
+      terminal-table (>= 1.4.0)
+      thor (>= 0.16.0)
+    json (1.8.3)
+    mini_portile2 (2.0.0)
+    mixlib-shellout (2.2.5)
+    nokogiri (1.6.7.2)
+      mini_portile2 (~> 2.0.0.rc2)
+    terminal-table (1.5.2)
+    thor (0.19.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  cfndsl
+  jenkins_api_client
+
+BUNDLED WITH
+   1.11.2
