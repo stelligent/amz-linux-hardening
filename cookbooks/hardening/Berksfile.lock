@@ -1,0 +1,7 @@
+DEPENDENCIES
+  hardening
+    path: .
+    metadata: true
+
+GRAPH
+  hardening (0.0.0)

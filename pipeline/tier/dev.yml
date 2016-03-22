@@ -1,0 +1,9 @@
+---
+Repo: centos-hardening
+Branch: master
+
+jenkins_ec2_key_pair_name: emktestwest
+subnet_id: subnet-39eeff5c
+vpc_id: vpc-6f36340a
+
+tier: dev

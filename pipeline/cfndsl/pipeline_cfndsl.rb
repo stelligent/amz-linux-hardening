@@ -1,7 +1,9 @@
 CloudFormation {
 
+  version = '3'
+
   S3_Bucket('rArtifactStore') {
-    BucketName "centos-pipeline-artefact-store#{Time.now.to_i}"
+    BucketName "hardening-pipeline-artefact-store#{Time.now.to_i}"
     VersioningConfiguration({
                               'Status' => 'Enabled'
                             })
@@ -82,13 +84,13 @@ CloudFormation {
 
       Property 'Category', custom_action[:category]
       Property 'Provider', custom_action[:provider]
-      Property 'Version', '1'
+      Property 'Version', version
       Property 'ConfigurationProperties', [
         {
           'Name' => 'ProjectName',
           'Description' => 'The name of the build project must be provided when this action is added to the pipeline.',
           'Key' => true,
-          'Queryable' => false,
+          'Queryable' => true,
           'Required' => true,
           'Secret' => false,
           'Type' => 'String'
@@ -153,7 +155,7 @@ CloudFormation {
              'ActionTypeId' => {
                'Category' => 'Build',
                'Owner' => 'Custom',
-               'Version' => '1',
+               'Version' => version,
                'Provider' => create_system_image_action_name
              },
              'RunOrder' => 1,
@@ -176,7 +178,7 @@ CloudFormation {
              'ActionTypeId' => {
                'Category' => 'Test',
                'Owner' => 'Custom',
-               'Version' => '1',
+               'Version' => version,
                'Provider' => test_system_image_action_name
              },
              'RunOrder' => 2,

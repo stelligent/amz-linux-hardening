@@ -1,6 +1,14 @@
-job('test-system-image') {
+jobName = 'create-system-image'
+awsRegion = 'us-west-2'
+customActionTypeVersion = 3
+
+job(jobName) {
   triggers {
     scm("* * * * *")
+  }
+
+  steps {
+    shell(readFileFromWorkspace("pipeline/jobs/bash/${jobName}.sh"))
   }
 
   configure { project ->
@@ -9,10 +17,10 @@ job('test-system-image') {
     project / scm(class: 'com.amazonaws.codepipeline.jenkinsplugin.AWSCodePipelineSCM', plugin: 'codepipeline@0.8') {
       clearWorkspace true
       actionTypeCategory 'Build'
-      actionTypeProvider 'test-system-image'
-      projectName 'test-system-image'
-      actionTypeVersion 1
-      region 'us-west-2'
+      actionTypeProvider jobName
+      projectName jobName
+      actionTypeVersion customActionTypeVersion
+      region awsRegion
     }
 
     project.remove(project / publishers)

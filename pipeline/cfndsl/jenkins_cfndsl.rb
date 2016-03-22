@@ -9,6 +9,56 @@ CloudFormation {
     }
   }
 
+  IAM_Role('JenkinsInstanceRole') {
+    AssumeRolePolicyDocument JSON.load <<-END
+      {
+        "Statement":[
+          {
+            "Sid":"1",
+            "Effect":"Allow",
+            "Principal":{
+              "Service":[
+                "ec2.amazonaws.com"
+              ]
+            },
+            "Action":"sts:AssumeRole"
+          }
+        ]
+      }
+    END
+
+    Path '/'
+
+    Policies JSON.load <<-END
+      [
+        {
+          "PolicyName":"JenkinsCodePipelinePolicy",
+          "PolicyDocument":{
+            "Version":"2012-10-17",
+            "Statement": [
+              {
+                "Action": [
+                  "codepipeline:AcknowledgeJob",
+                  "codepipeline:GetJobDetails",
+                  "codepipeline:PollForJobs",
+                  "codepipeline:PutJobFailureResult",
+                  "codepipeline:PutJobSuccessResult"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
+              }
+            ]
+          }
+        }
+      ]
+    END
+  }
+
+  IAM_InstanceProfile('JenkinsInstanceProfile') {
+    Path '/'
+    Roles [ Ref('JenkinsInstanceRole') ]
+  }
+
   EC2_SecurityGroup('JenkinsSecurityGroup') {
     VpcId vpc_id
     GroupDescription 'Will mostly be phoning home to CP'
@@ -29,6 +79,8 @@ CloudFormation {
     InstanceType 'm4.large'
     KeyName jenkins_ec2_key_pair_name
 
+    IamInstanceProfile Ref('JenkinsInstanceProfile')
+
     NetworkInterfaces [
       NetworkInterface {
         GroupSet Ref('JenkinsSecurityGroup')
@@ -39,12 +91,21 @@ CloudFormation {
       }
     ]
 
+    Tags [
+       {
+         'Key' => 'Name',
+         'Value' => 'Jenkins-CodePipeline-Worker'
+       }
+     ]
+
     UserData FnBase64(FnJoin(
       '',
       [
         "#!/bin/bash -xe\n",
         "yum update -y aws-cfn-bootstrap\n",
         "yum -y upgrade\n",
+
+        "echo export tier=#{tier} > /etc/profile.d/tier.sh\n",
 
         "service jenkins start\n",
 

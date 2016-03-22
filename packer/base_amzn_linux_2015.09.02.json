@@ -1,0 +1,41 @@
+{
+  "variables": {
+    "ami_name": "",
+    "vpc_id": "",
+    "subnet_id": "",
+
+    "source_ami": "ami-63b25203",
+    "associate_public_ip_address": true,
+    "region": "us-west-2"
+  },
+
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "instance_type": "t2.large",
+      "ssh_username": "ec2-user",
+
+      "ssh_pty": "true",
+
+      "source_ami": "{{user `source_ami`}}",
+      "region": "{{user `region`}}",
+      "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
+
+      "ami_name": "{{user `ami_name`}}",
+      "subnet_id": "{{user `subnet_id`}}",
+      "vpc_id": "{{user `vpc_id`}}"
+    }
+  ],
+
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": [
+        "cookbooks"
+      ],
+      "run_list": [
+        "hardening::default"
+      ]
+    }
+  ]
+}
