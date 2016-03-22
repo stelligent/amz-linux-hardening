@@ -27,6 +27,7 @@ job(jobName) {
       awsSecretKey ''
       proxyHost ''
       proxyPort '0'
+      awsClientFactory ''
     }
 
     project.remove(project / publishers)
