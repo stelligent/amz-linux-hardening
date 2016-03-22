@@ -37,6 +37,9 @@ job(jobName) {
           outputString ''
         }
       }
+
+      //this rubbish is apparently necessary, even with instance profiles
+      awsClientFactory ''
     }
   }
 }

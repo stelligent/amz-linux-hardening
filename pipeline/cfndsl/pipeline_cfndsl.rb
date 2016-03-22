@@ -1,9 +1,11 @@
 CloudFormation {
 
   version = '4'
+  pipeline_name = 'amz-linux-hardened-ami'
+  bucket_name_stem = 'hardening-pipeline-artefact-store'
 
   S3_Bucket('rArtifactStore') {
-    BucketName "hardening-pipeline-artefact-store#{Time.now.to_i}"
+    BucketName "#{bucket_name_stem}#{Time.now.to_i}"
     VersioningConfiguration({
                               'Status' => 'Enabled'
                             })
@@ -44,7 +46,7 @@ CloudFormation {
                   "s3:PutObject"
                 ],
                 "Resource": [
-                  "arn:aws:s3:::centos-pipeline-artefact-store*"
+                  "arn:aws:s3:::#{bucket_name_stem}*"
                  ],
                 "Effect":"Allow"
               },
@@ -62,7 +64,7 @@ CloudFormation {
     END
   }
 
-  source_artefact_name = 'centosAmiSourceCodeArtefact'
+  source_artefact_name = 'machineImageSourceCodeArtefact'
   create_system_image_action_name = 'create-system-image'
   test_system_image_action_name = 'test-system-image'
   system_image_artefact_name = 'systemImageWorkspace'
@@ -117,7 +119,7 @@ CloudFormation {
   Resource('rPipeline') {
     Type 'AWS::CodePipeline::Pipeline'
 
-    Property 'Name', 'centos-hardened-ami'
+    Property 'Name', pipeline_name
 
     Property 'RestartExecutionOnUpdate', false
 

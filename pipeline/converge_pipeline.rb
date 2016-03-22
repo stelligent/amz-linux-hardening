@@ -7,14 +7,20 @@ tier = ARGV[0]
 def seed_jobs(tier_properties)
   require 'jenkins_api_client'
 
-  client = JenkinsApi::Client.new server_url: tier_properties['server_url'],
+  client = JenkinsApi::Client.new server_url: tier_properties['jenkins_url'],
                                   username: tier_properties['jenkins_user'],
                                   password: tier_properties['jenkins_pass']
 
-  client.job.create('job-seed',
+  job_name = 'job-seed'
+  if client.job.exists? job_name
+    client.job.delete job_name
+  end
+
+  client.job.create(job_name,
                     IO.read(File.join('pipeline', 'jobs', 'job-seed-config.xml')))
 
-  client.job.build 'job-seed'
+
+  client.job.build job_name
 end
 
 def load_properties(tier)
@@ -26,15 +32,15 @@ end
 tier_properties = load_properties tier
 
 converger = CfndslConverger.new
-outputs = converger.converge stack_name: "CentOS-Hardened-AMI-Jenkins-Worker-#{tier.upcase}",
+outputs = converger.converge stack_name: "Amz-Linux-Hardened-AMI-Jenkins-Worker-#{tier.upcase}",
                              path_to_stack: 'pipeline/cfndsl/jenkins_cfndsl.rb',
                              bindings: tier_properties
 
-tier_properties['server_url'] = outputs['JenkinsURL']
+tier_properties['jenkins_url'] = outputs['JenkinsURL']
 
 seed_jobs tier_properties
 
-outputs = converger.converge stack_name: "CentOS-Hardened-AMI-Pipeline-#{tier.upcase}",
+outputs = converger.converge stack_name: "Amz-Linux-Hardened-AMI-Pipeline-#{tier.upcase}",
                              path_to_stack: 'pipeline/cfndsl/pipeline_cfndsl.rb',
                              bindings: tier_properties
 
