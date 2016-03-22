@@ -21,6 +21,12 @@ job(jobName) {
       projectName jobName
       actionTypeVersion customActionTypeVersion
       region awsRegion
+
+      //this rubbish is apparently necessary, even with instance profiles
+      awsAccessKey ''
+      awsSecretKey ''
+      proxyHost ''
+      proxyPort '0'
     }
 
     project.remove(project / publishers)
