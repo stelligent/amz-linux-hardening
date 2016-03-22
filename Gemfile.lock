@@ -10,6 +10,7 @@ GEM
     aws-sdk-utils (0.0.5)
       aws-sdk (= 2.2.17)
       cfndsl (= 0.4.0)
+      trollop (= 2.1.2)
     cfndsl (0.4.0)
     jenkins_api_client (1.4.2)
       json
@@ -25,6 +26,7 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     terminal-table (1.5.2)
     thor (0.19.1)
+    trollop (2.1.2)
 
 PLATFORMS
   ruby
