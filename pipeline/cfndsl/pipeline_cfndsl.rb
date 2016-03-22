@@ -1,6 +1,6 @@
 CloudFormation {
 
-  version = '3'
+  version = '4'
 
   S3_Bucket('rArtifactStore') {
     BucketName "hardening-pipeline-artefact-store#{Time.now.to_i}"
