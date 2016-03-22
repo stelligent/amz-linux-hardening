@@ -1,4 +1,4 @@
-#!/usr/bin/env bash -ex
+#!/usr/bin/env bash -exl
 
 if [[ -z ${tier} ]];
 then
