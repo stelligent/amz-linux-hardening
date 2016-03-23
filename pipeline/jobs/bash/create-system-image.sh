@@ -20,7 +20,8 @@ vpc_id=$(yaml_get pipeline/tier/${tier}.yml vpc_id)
 subnet_id=$(yaml_get pipeline/tier/${tier}.yml subnet_id)
 ami_name_stem=hardened_amz_linux_2015.09.02_
 
-packer -machine-readable build \
+packer build \
+    -machine-readable \
     -var "vpc_id=${vpc_id}" \
     -var "subnet_id=${subnet_id}" \
     -var "ami_name=${ami_name_stem}$(date +%s)" \
