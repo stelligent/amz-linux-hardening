@@ -38,7 +38,8 @@ cfndsl_converge --stack-name ${stack_name} \
                 --path-to-stack pipeline/cfndsl/inspector_target_cfndsl.rb \
                 --path-to-yaml input.yml
 
-# call run preview to make sure the instance is phoning home?
+# call run preview to make sure the instance is phoning home? er - there is none i can find
+# seems to work ok? with the coarse polling in the run-assessment.sh
 
 # hard code this until inspector API is in a better shape to retrieve artefacts by name
 assessment_template_arn='arn:aws:inspector:us-west-2:592804526322:target/0-61RJmAmP/template/0-sH0ib1lk'
@@ -47,4 +48,7 @@ bash -ex inspector_provisioning/run-assessment.sh ${assessment_template_arn}
 aws cloudformation delete-stack --stack-name ${stack_name} --region ${AWS_REGION}
 
 # process findings
-cat findings.json
+cat findings.json | jq '[.[]|.findings]|flatten|map(select(.severity != "Informational"))' > violations.json
+
+number_of_violations=$(cat violations.json | jq '.|length')
+exit ${number_of_violations}
