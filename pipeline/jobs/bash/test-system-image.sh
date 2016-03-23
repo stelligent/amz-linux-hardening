@@ -30,7 +30,11 @@ image_id: ${ami_id}
 subnet_id: ${subnet_id}
 END
 
-cfndsl_converge --stack-name inspector-target-$(date +%s) \
+# this region is the only game in town for
+export AWS_REGION=us-west-2
+
+stack_name=inspector-target-$(date +%s)
+cfndsl_converge --stack-name ${stack_name} \
                 --path-to-stack pipeline/cfndsl/inspector_target_cfndsl.rb \
                 --path-to-yaml input.yml
 
@@ -38,7 +42,9 @@ cfndsl_converge --stack-name inspector-target-$(date +%s) \
 
 # hard code this until inspector API is in a better shape to retrieve artefacts by name
 assessment_template_arn='arn:aws:inspector:us-west-2:592804526322:target/0-61RJmAmP/template/0-sH0ib1lk'
-inspector_provisioning/run-assessment.sh ${assessment_template_arn}
+bash inspector_provisioning/run-assessment.sh ${assessment_template_arn}
+
+aws cloudformation delete-stack --stack-name ${stack_name} --region ${AWS_REGION}
 
 # process findings
 cat findings.json
