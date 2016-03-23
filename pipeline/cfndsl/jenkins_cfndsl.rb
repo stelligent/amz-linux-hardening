@@ -142,7 +142,7 @@ CloudFormation {
 
         "wget https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip\n",
         "unzip packer_0.10.0_linux_amd64.zip\n",
-        "mv packer /bin\n",
+        "mv packer /opt\n",
 
         "echo export tier=#{tier} > /etc/profile.d/tier.sh\n",
 

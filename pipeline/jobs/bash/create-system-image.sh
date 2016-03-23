@@ -20,16 +20,13 @@ vpc_id=$(yaml_get pipeline/tier/${tier}.yml vpc_id)
 subnet_id=$(yaml_get pipeline/tier/${tier}.yml subnet_id)
 ami_name_stem=hardened_amz_linux_2015.09.02_
 
-packer build \
+/opt/packer build \
     -machine-readable \
-    -debug \
     -var "vpc_id=${vpc_id}" \
     -var "subnet_id=${subnet_id}" \
     -var "ami_name=${ami_name_stem}$(date +%s)" \
-    packer/base_amzn_linux_2015.09.02.json
-    #
-    #2>&1 | tee build.log
+    packer/base_amzn_linux_2015.09.02.json 2>&1 | tee build.log
 
-#ami_id=$(grep 'artifact,0,id' build.log | cut -d, -f6 | cut -d: -f2)
+ami_id=$(grep 'artifact,0,id' build.log | cut -d, -f6 | cut -d: -f2)
 
-#echo ami_id=${ami_id} > create-system-image-results
+echo ami_id=${ami_id} > create-system-image-results
