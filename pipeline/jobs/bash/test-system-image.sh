@@ -59,7 +59,8 @@ else
 fi
 
 aws ec2 create-tags --resources ${ami_id} \
-                    --tags Key=certified,Value=${certified}
+                    --tags Key=certified,Value=${certified} \
+                    --region ${AWS_REGION}
 
 exit ${number_of_violations}
 
