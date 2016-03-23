@@ -14,9 +14,7 @@
       "type": "amazon-ebs",
       "instance_type": "t2.large",
       "ssh_username": "ec2-user",
-
-      "ssh_pty": "true",
-
+      
       "source_ami": "{{user `source_ami`}}",
       "region": "{{user `region`}}",
       "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
