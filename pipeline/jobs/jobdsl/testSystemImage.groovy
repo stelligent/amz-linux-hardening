@@ -31,17 +31,6 @@ job(jobName) {
     }
 
     project.remove(project / publishers)
-
-    project / publishers / 'com.amazonaws.codepipeline.jenkinsplugin.AWSCodePipelinePublisher'(plugin:'codepipeline@0.8') {
-      buildOutputs {
-        'com.amazonaws.codepipeline.jenkinsplugin.AWSCodePipelinePublisher_-OutputTuple' {
-          outputString ''
-        }
-      }
-
-      //this rubbish is apparently necessary, even with instance profiles
-      awsClientFactory ''
-    }
   }
 
   wrappers {
