@@ -1,5 +1,5 @@
 ---
-Repo: centos-hardening
+Repo: amz-linux-hardening
 Branch: master
 
 jenkins_ec2_key_pair_name: emktestwest
