@@ -25,7 +25,7 @@ bundle install
 
 subnet_id=$(yaml_get pipeline/tier/${tier}.yml subnet_id)
 
-echo <<END > input.yml
+cat <<END > input.yml
 image_id: ${ami_id}
 subnet_id: ${subnet_id}
 END
