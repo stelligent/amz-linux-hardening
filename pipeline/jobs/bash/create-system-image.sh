@@ -6,6 +6,14 @@ then
   echo tier must be defined
 fi
 
+set +e
+bundle --version
+if [[ $? != 0 ]];
+then
+  gem install bundler --version 1.11.2
+fi
+set -e
+
 bundle install
 
 vpc_id=$(yaml_get pipeline/tier/${tier}.yml vpc_id)

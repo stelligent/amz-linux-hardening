@@ -5,7 +5,7 @@
     "subnet_id": "",
 
     "source_ami": "ami-63b25203",
-    "associate_public_ip_address": true,
+    "associate_public_ip_address": "true",
     "region": "us-west-2"
   },
 

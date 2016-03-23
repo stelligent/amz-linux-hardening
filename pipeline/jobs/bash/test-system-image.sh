@@ -13,6 +13,14 @@ fi
 
 source create-system-image-results
 
+set +e
+bundle --version
+if [[ $? != 0 ]];
+then
+  gem install bundler --version 1.11.2
+fi
+set -e
+
 bundle install
 
 subnet_id=$(yaml_get pipeline/tier/${tier}.yml subnet_id)

@@ -43,4 +43,8 @@ job(jobName) {
       awsClientFactory ''
     }
   }
+
+  wrappers {
+    rvm('2.2.1@system-image')
+  }
 }
