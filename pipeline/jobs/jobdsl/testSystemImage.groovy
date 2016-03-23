@@ -1,10 +1,10 @@
 jobName = 'test-system-image'
 awsRegion = 'us-west-2'
-customActionTypeVersion = 5
+customActionTypeVersion = 6
 
 job(jobName) {
   triggers {
-    scm("* * * * *")
+    scm('* * * * *')
   }
 
   steps {

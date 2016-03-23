@@ -137,7 +137,7 @@ CloudFormation {
 
         "yum -y install ruby-devel\n",
         "yum -y install zlib-devel\n",
-        "yum -y groupinstall 'Development Tools'l\n",
+        "yum -y groupinstall 'Development Tools'\n",
         "yum -y install libyaml-devel readline-devel libffi-devel openssl-devel sqlite-devel\n",
 
         "wget https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip\n",
