@@ -42,7 +42,7 @@ cfndsl_converge --stack-name ${stack_name} \
 
 # hard code this until inspector API is in a better shape to retrieve artefacts by name
 assessment_template_arn='arn:aws:inspector:us-west-2:592804526322:target/0-61RJmAmP/template/0-sH0ib1lk'
-bash inspector_provisioning/run-assessment.sh ${assessment_template_arn}
+bash -ex inspector_provisioning/run-assessment.sh ${assessment_template_arn}
 
 aws cloudformation delete-stack --stack-name ${stack_name} --region ${AWS_REGION}
 

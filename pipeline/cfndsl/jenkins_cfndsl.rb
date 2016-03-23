@@ -79,7 +79,8 @@ CloudFormation {
               },
               {
                 "Action": [
-                  "cloudformation:*"
+                  "cloudformation:*",
+                  "inspector:*",
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
@@ -142,7 +143,7 @@ CloudFormation {
         "yum update -y aws-cfn-bootstrap\n",
         "yum -y upgrade\n",
 
-        "yum -y install ruby-devel\n",
+        "yum -y install ruby-devel jq\n",
         "yum -y install zlib-devel\n",
         "yum -y groupinstall 'Development Tools'\n",
         "yum -y install libyaml-devel readline-devel libffi-devel openssl-devel sqlite-devel\n",

@@ -2,6 +2,8 @@
 
 # oregon is the only game in town for Inspector
 export AWS_REGION=us-west-2
+aws configure add-model --service-model https://s3-us-west-2.amazonaws.com/inspector-service-model/inspector-2016-02-16.normal.json \
+                        --service-name inspector
 
 resource_group_arn_json=$(aws inspector create-resource-group --resource-group-tags key=target,value=inspector-amz-2015.09.02 \
                                                               --region ${AWS_REGION})

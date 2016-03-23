@@ -6,7 +6,9 @@ findings_output_filename=findings.json
 
 # oregon is the only game in town for Inspector
 export AWS_REGION=us-west-2
-
+aws configure add-model --service-model https://s3-us-west-2.amazonaws.com/inspector-service-model/inspector-2016-02-16.normal.json \
+                        --service-name inspector
+                        
 assessment_run_name=amz-2015.09.02-hardening-$(date +%s)
 
 assessment_run_json=$(aws inspector start-assessment-run --assessment-template-arn ${assessment_template_arn} \
