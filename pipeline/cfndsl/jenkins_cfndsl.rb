@@ -46,6 +46,36 @@ CloudFormation {
                 ],
                 "Effect": "Allow",
                 "Resource": "*"
+              },
+              {
+                "Action": [
+                  "ec2:AttachVolume",
+                  "ec2:CreateVolume",
+                  "ec2:DeleteVolume",
+                  "ec2:CreateKeypair",
+                  "ec2:DeleteKeypair",
+                  "ec2:DescribeSubnets",
+                  "ec2:CreateSecurityGroup",
+                  "ec2:DeleteSecurityGroup",
+                  "ec2:AuthorizeSecurityGroupIngress",
+                  "ec2:CreateImage",
+                  "ec2:CopyImage",
+                  "ec2:RunInstances",
+                  "ec2:TerminateInstances",
+                  "ec2:StopInstances",
+                  "ec2:DescribeVolumes",
+                  "ec2:DetachVolume",
+                  "ec2:DescribeInstances",
+                  "ec2:CreateSnapshot",
+                  "ec2:DeleteSnapshot",
+                  "ec2:DescribeSnapshots",
+                  "ec2:DescribeImages",
+                  "ec2:RegisterImage",
+                  "ec2:CreateTags",
+                  "ec2:ModifyImageAttribute"
+                ],
+                "Effect": "Allow",
+                "Resource": "*"
               }
             ]
           }
@@ -104,6 +134,15 @@ CloudFormation {
         "#!/bin/bash -xe\n",
         "yum update -y aws-cfn-bootstrap\n",
         "yum -y upgrade\n",
+
+        "yum -y install ruby-devel\n",
+        "yum -y install zlib-devel\n",
+        "yum -y groupinstall 'Development Tools'l\n",
+        "yum -y install libyaml-devel readline-devel libffi-devel openssl-devel sqlite-devel\n",
+
+        "wget https://releases.hashicorp.com/packer/0.10.0/packer_0.10.0_linux_amd64.zip\n",
+        "unzip packer_0.10.0_linux_amd64.zip\n",
+        "mv packer /bin\n",
 
         "echo export tier=#{tier} > /etc/profile.d/tier.sh\n",
 
