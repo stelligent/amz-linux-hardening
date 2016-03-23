@@ -1,6 +1,6 @@
 CloudFormation {
 
-  version = '4'
+  version = '5'
   pipeline_name = 'amz-linux-hardened-ami'
   bucket_name_stem = 'hardening-pipeline-artefact-store'
 

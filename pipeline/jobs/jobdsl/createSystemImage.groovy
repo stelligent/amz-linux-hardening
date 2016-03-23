@@ -1,6 +1,6 @@
 jobName = 'create-system-image'
 awsRegion = 'us-west-2'
-customActionTypeVersion = 4
+customActionTypeVersion = 5
 
 job(jobName) {
   triggers {
