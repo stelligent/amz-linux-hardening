@@ -51,4 +51,15 @@ aws cloudformation delete-stack --stack-name ${stack_name} --region ${AWS_REGION
 cat findings.json | jq '[.[]|.findings]|flatten|map(select(.severity != "Informational"))' > violations.json
 
 number_of_violations=$(cat violations.json | jq '.|length')
+if [[ ${number_of_violations} > 0 ]];
+then
+  certified=false
+else
+  certified=true
+fi
+
+aws ec2 create-tags --resources ${ami_id} \
+                    --tags Key=certified,Value=${certified}
+
 exit ${number_of_violations}
+
